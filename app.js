@@ -1,7 +1,11 @@
 const express = require('express');
 const users = require('./users'); // Adjust the path as needed
+const cors = require('cors');
 const app = express();
 const port = 3001;
+
+// Enable CORS for all routes
+app.use(cors());
 
 app.use(express.json());
 
