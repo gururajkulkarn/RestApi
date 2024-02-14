@@ -15,6 +15,11 @@ const users = [
     { id: 13, name: 'Danish ', age: 11 },
     { id: 14, name: 'Ravi ', age: 12 },
     { id: 15, name: 'Rakesh ', age: 17 },
+    { id: 16, name: 'Pradeep ', age: 22 },
+    { id: 17, name: 'Ravi ', age: 14 },
+    { id: 18, name: 'Sachin ', age: 18 },
+    { id: 19, name: 'Prasanna ', age: 12 },
+    { id: 20, name: 'Basava ', age: 17 },
   ];
   
   module.exports = users;
