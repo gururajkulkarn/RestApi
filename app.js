@@ -1,5 +1,5 @@
 const express = require('express');
-const users = require('./users'); // Adjust the path as needed
+let users = require('./users'); // Adjust the path as needed
 const cors = require('cors');
 const app = express();
 const port = 3001;
@@ -36,6 +36,7 @@ app.post('/api/users', (req, res) => {
   res.status(201).json({ user: newUser });
 });
 
+
 // Update a user by ID
 app.put('/api/users/:id', (req, res) => {
   const userId = parseInt(req.params.id);
@@ -57,6 +58,10 @@ app.delete('/api/users/:id', (req, res) => {
 
   res.json({ message: 'User deleted successfully' });
 });
+
+
+
+
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
