@@ -4,9 +4,9 @@ const cors = require('cors');
 const app = express();
 const port = 3001;
 
+
 // Enable CORS for all routes
 app.use(cors());
-
 app.use(express.json());
 
 // Get all users
@@ -55,12 +55,8 @@ app.put('/api/users/:id', (req, res) => {
 app.delete('/api/users/:id', (req, res) => {
   const userId = parseInt(req.params.id);
   users = users.filter(u => u.id !== userId);
-
   res.json({ message: 'User deleted successfully' });
 });
-
-
-
 
 
 app.listen(port, () => {
