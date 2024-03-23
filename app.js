@@ -1,5 +1,6 @@
 const express = require('express');
 let users = require('./users'); // Adjust the path as needed
+let members = require('./members')
 const cors = require('cors');
 const app = express();
 const port = 3001;
@@ -57,6 +58,64 @@ app.delete('/api/users/:id', (req, res) => {
   users = users.filter(u => u.id !== userId);
   res.json({ message: 'User deleted successfully' });
 });
+
+
+// MEMEBRS API CRUD OPERATION
+
+// Get all members
+app.get('/api/members', (req, res) => {
+  res.json({ members });
+});
+
+// Get a specific user by ID
+app.get('/api/members/:id', (req, res) => {
+    const memberId = parseInt(req.params.id);
+    const member = members.find(u => u.id === memberId);
+  
+    if (!member) {
+      return res.status(404).json({ error: 'Member not found' });
+    }
+  
+    res.json({ member });
+  });
+  
+
+// Add a new user
+app.post('/api/members', (req, res) => {
+  const memberData = req.body;
+  const newMember = { id: members.length + 1, ...memberData };
+  members.push(newMember);
+
+  res.status(201).json({ member: newMember });
+});
+
+
+// Update a user by ID
+app.put('/api/members/:id', (req, res) => {
+  const memberId = parseInt(req.params.id);
+  const memberIndex = members.findIndex(u => u.id === memberId);
+
+  if (memberIndex === -1) {
+    return res.status(404).json({ error: 'member not found' });
+  }
+
+  members[memberIndex] = { ...members[memberIndex], ...req.body };
+
+  res.json({ user: members[memberIndex] });
+});
+
+// Delete a user by ID
+app.delete('/api/members/:id', (req, res) => {
+  const memberId = parseInt(req.params.id);
+  members = members.filter(u => u.id !== memberId);
+  res.json({ message: 'User deleted successfully' });
+});
+
+
+
+
+
+
 
 
 app.listen(port, () => {
