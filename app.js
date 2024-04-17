@@ -1,6 +1,7 @@
 const express = require('express');
 let users = require('./users'); // Adjust the path as needed
 let members = require('./members')
+let contacts = require('./contacts')
 const cors = require('cors');
 const app = express();
 const port = 3001;
@@ -112,6 +113,58 @@ app.delete('/api/members/:id', (req, res) => {
 });
 
 
+
+
+// CONTACTS API CRUD OPERATION
+
+// Get all members
+app.get('/api/contacts', (req, res) => {
+  res.json({ contacts });
+});
+
+// Get a specific user by ID
+app.get('/api/contacts/:id', (req, res) => {
+    const contactId = parseInt(req.params.id);
+    const contact = contacts.find(u => u.id === contactId);
+  
+    if (!contact) {
+      return res.status(404).json({ error: 'Contact not found' });
+    }
+  
+    res.json({ contact });
+  });
+  
+
+// Add a new user
+app.post('/api/contacts', (req, res) => {
+  const contactData = req.body;
+  const newContact = { id: contacts.length + 1, ...contactData };
+  contacts.push(newContact);
+
+  res.status(201).json({ contact: newContact });
+});
+
+
+// Update a user by ID
+app.put('/api/contacts/:id', (req, res) => {
+  const contactId = parseInt(req.params.id);
+  const contactIndex = contacts.findIndex(u => u.id === contactId);
+
+  if (contactIndex === -1) {
+    return res.status(404).json({ error: 'contacts not found' });
+  }
+
+  contacts[contactIndex] = { ...contacts[contactIndex], ...req.body };
+
+  res.json({ user: contacts[contactIndex] });
+});
+
+// Delete a user by ID
+app.delete('/api/contacts/:id', (req, res) => {
+  const contactId = parseInt(req.params.id);
+  contacts = contacts.filter(u => u.id !== contactId);
+  res.json({ message: 'contacts deleted successfully' });
+});
 
 
 
